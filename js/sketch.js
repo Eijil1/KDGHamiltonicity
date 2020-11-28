@@ -11,14 +11,29 @@ class Point {
 				this.id = id;
 		}
 
+
+		/**
+		 * Check if the point is inside the circumcircle formed by abc
+		 * @param {Point} a
+		 * @param {Point} b
+		 * @param {Point} c
+		 * @return {Boolean} if the point is in/on the circle
+		 */
 		isInside(a, b, c){
 				let det = this.detCircle(a, b, c);
 				let isCCW = this.ccw(a, b, c);
 				return (( isCCW && det >= 0) || (!isCCW && det <= 0));
 		}
 
+		/**
+		 * Compute the determinant for function isInside
+		 * See : https://stackoverflow.com/questions/39984709/how-can-i-check-wether-a-point-is-inside-the-circumcircle-of-3-points
+		 * @param {Point} a
+		 * @param {Point} b
+		 * @param {Point} c
+		 * @return {Number} the determinant
+		 */
 		detCircle(a, b, c){
-				// Source : https://stackoverflow.com/questions/39984709/how-can-i-check-wether-a-point-is-inside-the-circumcircle-of-3-points
 				let ax = a.x-this.x;
 				let ay = a.y-this.y;
 				let bx = b.x-this.x;
@@ -28,6 +43,13 @@ class Point {
 				return((ax*ax + ay*ay) * (bx*cy-cx*by) - (bx*bx + by*by) * (ax*cy-cx*ay) + (cx*cx + cy*cy) * (ax*by-bx*ay));
 		}
 
+		/**
+		 * Check if the points a, b and c are in CW or CCW order
+		 * @param {Point} a
+		 * @param {Point} b
+		 * @param {Point} c
+		 * @return {Boolean} if the points are in CCW
+		 */
 		ccw(a, b, c) {
 				return (b.x - a.x)*(c.y - a.y)-(c.x - a.x)*(b.y - a.y) > 0;
 		}
@@ -51,10 +73,11 @@ function setup() {
 		// Put setup code here
 		fill("black");
 		textSize(15);
+		// Create button to clear everything
 		clearButton = createButton("Clear");
 		clearButton.position(30, 90);
 		clearButton.mousePressed(resetPoints);
-
+		// Create inputs and button to add points by coordinates
 		inputX = createInput('x');
 		inputX.position(30, 30);
 		inputX.size(40);
@@ -64,7 +87,7 @@ function setup() {
 		addButton = createButton("Add");
 		addButton.position(inputY.x + inputY.width + 5, 30);
 		addButton.mousePressed(function(){addPoint(inputX.value(), inputY.value());});
-
+		// Create input for the value k and buttons to compute the KDG and the hamiltonian cycle
 		inputK = createInput('0');
 		inputK.position(55, 60);
 		inputK.size(15);
@@ -76,6 +99,9 @@ function setup() {
 		computeHamButton.mousePressed(computeHamC);
 }
 
+/**
+* Reset global variables
+*/
 function resetPoints() {
 		points = [];
 		graph = [];
@@ -84,14 +110,24 @@ function resetPoints() {
 		lenGraph = 0;
 }
 
+/**
+* Add a point at the coordinates given
+* @param {String} x
+* @param {String} y
+*/
 function addPoint(x,y){
 		x = parseInt(x);
 		y = parseInt(y);
 		if (!isNaN(x) && !isNaN(y) && x < windowWidth && y > 100 && y < windowHeight){
-				points.push(new Point(x, y));
+				points.push(new Point(x, y, id));
+				id ++;
 		}
 }
 
+/**
+* Compute the KDG with the given k value
+* @param {String} k
+*/
 function computeKDG(k){
 		graph = [];
 		hamCycle = [];
@@ -99,7 +135,8 @@ function computeKDG(k){
 		let count = 0;
 		k = parseInt(k);
 		if (isNaN(k)){
-				k = 0;
+			// If the k given isn't valid, it is set at 0
+			k = 0;
 		}
 		for (let a = 0; a < points.length; a++) {
 				for (let b = a + 1; b < points.length; b++) {
@@ -118,6 +155,7 @@ function computeKDG(k){
 						}
 				}
 		}
+		// Count the number of point in the graph, in case some are not (for the hamCycle)
 		let pointIn = [];
 		for (let e in graph){
 				if (!pointIn.includes(graph[e].end1)){
@@ -129,26 +167,46 @@ function computeKDG(k){
 		lenGraph = pointIn.length;
 }
 
+/**
+* Compute the hamiltonian cycle using back tracking
+* Code modified from : https://www.geeksforgeeks.org/hamiltonian-cycle-backtracking-6/
+*/
 function computeHamC(){
 		let adjacencyMatrix = computeMatrix();
 		let currPath = [points[0]];
-		// Source : https://www.geeksforgeeks.org/hamiltonian-cycle-backtracking-6/
 		hamCycle = hamCycleUtil(currPath, adjacencyMatrix);
 }
 
+/**
+* Check if the point v is a good point to add to the path
+* Safe if there is an edge from the last point of path to this one and if it is not already in path
+* @param {Point} v
+* @param {Point[]} path the path so far
+* @param {Number[][]} adjacencyMatrix
+* @return {Boolean} if the point is safe
+*/
 function isSafe(v, path, adjacencyMatrix) {
 		if (adjacencyMatrix[path[path.length-1].id][v.id] === 0){return false;}
 		return !path.includes(v);
 }
 
+/**
+* Recurcively look for a correct hamiltonian path
+* @param {Point[]} path the path so far
+* @param {NUmber[][]} adjacencyMatrix
+* @return {} false is no cycle, the path if there is
+*/
 function hamCycleUtil(path, adjacencyMatrix){
+		// First if the path have the right length, we check if there is an edge between first and last
+		// If there is, we found our path, else the path is not a valid cycle
 		if (path.length === lenGraph){
 				if (adjacencyMatrix[path[path.length - 1].id ][ path[0].id ] === 1){
 						return path;
 				}
 				else{return false;}
 		}
-
+		// We seach for a new point to add. If it safe, we add it to the path and check of we find a cycle with this configuration.
+		// If we do, we return the path, else we pop the point and continue
 		for (let v in points){
 				if (isSafe(points[v], path, adjacencyMatrix) === true) {
 						path.push(points[v]);
@@ -162,6 +220,10 @@ function hamCycleUtil(path, adjacencyMatrix){
 		return false;
 }
 
+/**
+* Compute the adjacency matrix
+* @return {NUmber[][]} the matrix
+*/
 function computeMatrix(){
 		let matrix = [];
 		for (let i = 0; i < points.length; i++){
