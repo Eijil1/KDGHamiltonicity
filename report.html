@@ -13,16 +13,19 @@
 <body>
 	<h1>Are 1-Delaunay graph hamiltonian ?</h1>
 		<h2>Introduction</h2>
-			As some researchers !!Source Abellanas et al. (2009) !! conjuctured that 1-Delaunay graphs are Hamiltonian, it is yet not shown. The aim of the application is to allow a user to experiment on the hamiltonicity of k-Delaunay graph. In this report, the application will be introduce, as well as the different algorithms used in its implementation.
+			As some researchers !! Source Abellanas et al. (2009) !! conjuctured that 1-Delaunay graphs are Hamiltonian, it is yet not shown. The aim of the application is to allow a user to experiment on the hamiltonicity of k-Delaunay graph. In this report, the application will be introduce, as well as the different algorithms used in its implementation.
 
 		<h2>Presentation</h2>
+			<p>Firstly, the main topic should be defined. The k-Delaunay graph on a set of points has an edge between two vertices there exists a disk that contains these points and no more than k other points. That graph would Hamiltonian if it contains an Hamiltonian cycle, a cycle that visits once and only once each vertex of the graph.</p>
 			<p>The tool is quite simple to use. The user may add points to the drawing area by clicking at the desired position or by entering coordinates in the input fields on the very top and then clicking on the "Add" button. Adding the points by coordinates allows to have more accuracy in the drawing. The user should just be aware that the coordinate system used is the same as in javascript : x growing from left to right and y from top to bottom. If the user tries to add a point outside of the drawing area (outside of the window or above the line), nothing will happen.</p>
-			<p>Once they are satified by the layout, the "Compute k-DG" button allows to display the k-Delaunay graph. They may choose the value of k in the input field on the left of the button. If the input is not . Eventually the "Compute Hamiltonian cycle" button will display an hamiltonian cycle in the graph if there is one.</p>
+			<p>Once they are satified by the layout, the "Compute k-DG" button allows to display the k-Delaunay graph. They may choose the value of k in the input field on the left of the button. If the input is not valid, the default value is 0. Eventually the "Compute Hamiltonian cycle" button will display an hamiltonian cycle in the graph if there is one.</p>
 			<p>The "Clear" button will clear everything that has been drew.</p>
 
 		<h2>Algorithms</h2>
 			<h3>K-Delaunay graphs</h3>
-				<p></p>
+				<p>As it was explain, a k-Delaunay graph has an edge between two points if there is a disk containing these two points and no more than k others. But there is another way to define it.</p>
+				<p>Indeed, the k-Delaunay triangles can be used. A triangle is said k-Delaunay if its circumcircle contains no more than k other points. Then, if an edge is an edge of a k-Delaunay triangle, it is also part of the k-Delaunay graph.</p>
+				<p>Knowing that, there is a simple algorithm to compute the graph. For every triple of points, we check whether there are more than k other points in the circumcircles. Since there are n choose 3 triangles, the running time of the algorithm is O(n<sup>4</sup>).</p>
 
 			<h3>Hamiltonian cycles</h3>
 				<p></p>
