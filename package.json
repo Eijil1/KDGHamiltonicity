@@ -1,5 +1,5 @@
 {
-  "name": "2b",
+  "name": "KDGHamiltonicity",
   "version": "1.0.0",
   "description": "",
   "main": "sketch.js",
@@ -8,8 +8,7 @@
     "build": "echo This is a static template, there is no bundler or bundling involved!"
   },
   "keywords": [],
-  "author": "Danny Ruchtie",
-  "license": "MIT",
+  "author": "Delphine Somerhausen",
   "devDependencies": {
     "serve": "^11.2.0"
   }
