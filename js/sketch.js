@@ -52,27 +52,27 @@ function setup() {
 		fill("black");
 		textSize(15);
 		clearButton = createButton("Clear");
-		clearButton.position(30, 70);
+		clearButton.position(30, 90);
 		clearButton.mousePressed(resetPoints);
 
 		inputX = createInput('x');
-		inputX.position(30, 10);
+		inputX.position(30, 30);
 		inputX.size(40);
 		inputY = createInput('y');
-		inputY.position(inputX.x + inputX.width+5, 10);
+		inputY.position(inputX.x + inputX.width+5, 30);
 		inputY.size(40);
 		addButton = createButton("Add");
-		addButton.position(inputY.x + inputY.width + 5, 10);
+		addButton.position(inputY.x + inputY.width + 5, 30);
 		addButton.mousePressed(function(){addPoint(inputX.value(), inputY.value());});
 
 		inputK = createInput('0');
-		inputK.position(55, 40);
+		inputK.position(55, 60);
 		inputK.size(15);
 		computeKDButton = createButton('Compute k-DG');
-		computeKDButton.position(inputK.x + inputK.width + 5, 40);
+		computeKDButton.position(inputK.x + inputK.width + 5, 60);
 		computeKDButton.mousePressed(function(){computeKDG(inputK.value());});
 		computeHamButton = createButton('Compute Hamiltonian cycle');
-		computeHamButton.position(computeKDButton.x + computeKDButton.width + 5 , 40);
+		computeHamButton.position(computeKDButton.x + computeKDButton.width + 5 , 60);
 		computeHamButton.mousePressed(computeHamC);
 }
 
@@ -132,6 +132,7 @@ function computeKDG(k){
 function computeHamC(){
 		let adjacencyMatrix = computeMatrix();
 		let currPath = [points[0]];
+		// Source : https://www.geeksforgeeks.org/hamiltonian-cycle-backtracking-6/
 		hamCycle = hamCycleUtil(currPath, adjacencyMatrix);
 }
 
