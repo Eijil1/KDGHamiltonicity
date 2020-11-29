@@ -1,7 +1,18 @@
 html,
 body {
   margin: 0;
-  padding: 40px;
+  padding: 70px;
+  padding-top: 20px;
   background-color: midnightblue;
   color: lightsteelblue;
+  font-family: "Arial";
+}
+header {
+  background-color: thistle;
+  padding: 10px;
+  border-radius: 5px;
+}
+a {
+  text-decoration: none;
+  color: indigo;
 }

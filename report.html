@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Report</title>
-    <link href="/css/report.css" rel="stylesheet" />
+    <link href="css/report.css" rel="stylesheet" />
 </head>
 <header>
     <nav>
-        <a href="index.html">Go to application</a>
+        <a href="index.html"><strong>Go to application</strong></a>
     </nav>
 </header>
 <body>
@@ -28,13 +28,18 @@
 				<p>Knowing that, there is a simple algorithm to compute the graph. For every triple of points, we check whether there are more than k other points in the circumcircles. Since there are n choose 3 triangles, the running time of the algorithm is O(n<sup>4</sup>).</p>
 
 			<h3>Hamiltonian cycles</h3>
-				<p></p>
+				<p>Once the graph is computed, the search for an hamiltonian cycle can be made. The implemented algorithm uses backtracking.</p>
+				<p>A recursive function takes the current path that is tried and check for every vertex if it can be added. A vertex is valid if it is not visited yet and if there is an edge between it and the last point of the path. If a vertex is safe to add, then it is added to the path and the function is called again. If it ended on a invalid path, the point is remove from the path. The worst case for this algorithm O(n!).</p>
 
 		<h2>Implementation</h2>
-			<p></p>
+			<p>Even though the algorithms are described above, some points have been left out.</p>
+			<p>To compute the hamiltonian cycle, it is needed to know the number of vertex in the graph. This calculation is made at the end of the computation of the graph and takes O(n<sup>3</sup>), since for every edge we check in a list if the point is already counted. There are at most n<sup>2</sup> egdes and the list has at most n points. Since the algorithm to compute the graph is O(n<sup>4</sup>), it does not add complexity.</p>
+			<p>Still to compute the cycle, the fisrt step was to find the adjacency matrix, so it is not necessary to search in all the edges an edge between two vertices. The computation of the matrix takes a O(n<sup>2</sup>) since every edge is taken in account and there is at most n<sup>2</sup> edges.</p>
 
 		<h2>Conclusion</h2>
 			<p></p>
+
+		<h2>Bibliography</h2>
 
 </body>
 </html>
