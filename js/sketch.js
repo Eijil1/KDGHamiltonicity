@@ -75,27 +75,27 @@ function setup() {
 		textSize(15);
 		// Create button to clear everything
 		clearButton = createButton("Clear");
-		clearButton.position(30, 90);
+		clearButton.position(30, 80);
 		clearButton.mousePressed(resetPoints);
 		// Create inputs and button to add points by coordinates
 		inputX = createInput('x');
-		inputX.position(30, 30);
+		inputX.position(30, 20);
 		inputX.size(40);
 		inputY = createInput('y');
-		inputY.position(inputX.x + inputX.width+5, 30);
+		inputY.position(inputX.x + inputX.width+5, 20);
 		inputY.size(40);
 		addButton = createButton("Add");
-		addButton.position(inputY.x + inputY.width + 5, 30);
+		addButton.position(inputY.x + inputY.width + 5, 20);
 		addButton.mousePressed(function(){addPoint(inputX.value(), inputY.value());});
 		// Create input for the value k and buttons to compute the KDG and the hamiltonian cycle
 		inputK = createInput('0');
-		inputK.position(55, 60);
+		inputK.position(55, 50);
 		inputK.size(15);
 		computeKDButton = createButton('Compute k-DG');
-		computeKDButton.position(inputK.x + inputK.width + 5, 60);
+		computeKDButton.position(inputK.x + inputK.width + 5, 50);
 		computeKDButton.mousePressed(function(){computeKDG(inputK.value());});
 		computeHamButton = createButton('Compute Hamiltonian cycle');
-		computeHamButton.position(computeKDButton.x + computeKDButton.width + 5 , 60);
+		computeHamButton.position(computeKDButton.x + computeKDButton.width + 5 , 50);
 		computeHamButton.mousePressed(computeHamC);
 }
 
