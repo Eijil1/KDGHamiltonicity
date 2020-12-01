@@ -7,6 +7,9 @@ body {
   color: lightsteelblue;
   font-family: "Arial";
 }
+h1{
+  text-align: center;
+}
 header {
   background-color: thistle;
   padding: 10px;
@@ -15,4 +18,27 @@ header {
 a {
   text-decoration: none;
   color: indigo;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+}
+.center2 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.column {
+  float: left;
+  width: 45%;
+  padding: 5px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
