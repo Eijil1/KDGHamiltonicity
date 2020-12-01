@@ -13,10 +13,10 @@
 <body>
 	<h1>Are 1-Delaunay graph hamiltonian ?</h1>
 		<h2>Introduction</h2>
-			As some researchers !! Source Abellanas et al. (2009) !! conjuctured that 1-Delaunay graphs are Hamiltonian, it is yet not shown. The aim of the application is to allow a user to experiment on the hamiltonicity of k-Delaunay graph. In this report, the application will be introduce, as well as the different algorithms used in its implementation.
+			As some researchers conjuctured that 1-Delaunay graphs are Hamiltonian[1], it is yet not shown. On the other hand, it was shown that 10-Delaunay graphs are always Hamiltonian[4]. The aim of the application is to allow a user to experiment on the hamiltonicity of k-Delaunay graph. In this report, the application will be introduce, as well as the different algorithms used in its implementation.
 
 		<h2>Presentation</h2>
-			<p>Firstly, the main topic should be defined. The k-Delaunay graph on a set of points has an edge between two vertices there exists a disk that contains these points and no more than k other points. That graph would be Hamiltonian if it contains an Hamiltonian cycle, a cycle that visits once and only once each vertex of the graph.</p>
+			<p>Firstly, the main topic should be defined. The k-Delaunay graph on a set of points has an edge between two vertices if there exists a disk that contains these points and no more than k other points. That graph would be Hamiltonian if it contains an Hamiltonian cycle, a cycle that visits once and only once each vertex of the graph[2].</p>
 			<p>The tool is quite simple to use. The user may add points to the drawing area by clicking at the desired position or by entering coordinates in the input fields on the very top and then clicking on the "Add" button. Adding the points by coordinates allows to have more accuracy in the drawing. The user should just be aware that the coordinate system used is the same as in javascript : x growing from left to right and y from top to bottom. If the user tries to add a point outside of the drawing area (outside of the window or above the line), nothing will happen.</p>
 			<img src="empty.png" alt="Application" class="center"/>
 			<p>Once they are satified by the layout, the "Compute k-DG" button allows to display the k-Delaunay graph. They may choose the value of k in the input field on the left of the button. If the input is not valid, the default value is 0. Eventually the "Compute Hamiltonian cycle" button will display an hamiltonian cycle in the graph if there is one.</p>
@@ -38,7 +38,7 @@
 				
 			<h3>Hamiltonian cycles</h3>
 				<p>Once the graph is computed, the search for an hamiltonian cycle can be made. The implemented algorithm uses backtracking.</p>
-				<p>A recursive function takes the current path that is tried and check for every vertex if it can be added. A vertex is valid if it is not visited yet and if there is an edge between it and the last point of the path. If a vertex is safe to add, then it is added to the path and the function is called again. If it ends on an invalid path, the point is removed from the path. The worst case for this algorithm O(n!).</p>
+				<p>A recursive function takes the current path that is tried and check for every vertex if it can be added. A vertex is valid if it is not visited yet and if there is an edge between it and the last point of the current path. If a vertex is safe to add, then it is added to the path and the function is called again. If it ends on an invalid path, the point is removed from the path. The worst case for this algorithm O(n!)[3].</p>
 				<img src="appHam.png" alt="Ham" class="center2"/>
 
 
@@ -48,9 +48,15 @@
 				<p>Still to compute the cycle, the fisrt step was to find the adjacency matrix, so it is not necessary to search in all the edges an edge between two vertices. The computation of the matrix takes a O(n<sup>2</sup>) since every edge is taken in account and there is at most n<sup>2</sup> edges.</p>
 
 		<h2>Conclusion</h2>
-			<p></p>
+			<p>Although the application could be improved with some features, like the implementation of Gabriel graphs, it might be a useful tools to test different Delaunay graphs' Hamiltonicity. The algorithms used may also be improved to decrease the time complexity. For example, the Hamiltonian cycle problem might be solved using heuristics as describeb by Rubin[5].</p>
 
 		<h2>Bibliography</h2>
+			<p>[1] Abellanas Manuel, Bose P, García J, Hurtado F, Nicolás C, Ramos P. "On structural and graph theoretic properties of higher order Delaunay graphs". <i>International Journal of Computational Geometry & Applications</i>. Vol 19, no 06. 2008. https://doi.org/10.1142/S0218195909003143.</p>
+			<p>[2] Weisstein Eric W. "Hamiltonian Graph." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/HamiltonianGraph.html.</p>
+			<p>[3] Vaibhav Jaimini. "Hamiltonian Path" From hackerearth.com. https://www.hackerearth.com/practice/algorithms/graphs/hamiltonian-path/tutorial/.</p>
+			<p>[4] Saumell Maria. "On the Hamiltonicity and related properties of variants of the Delaunay triangulation". University of West Bohemia. 2014.</p>
+			<p>[5] Rubin Frank. "A search Procedure for Hamilton Paths and Circuits". <i>Journal of the ACM</i>. Vol 21, no 04. 1974. https://doi.org/10.1145/321850.321854.</p>
+			<p>[] Dillencourt Michael B. "Finding Hamiltonian cycles in Delaunay triangulations is NP-complete". <i>Discrete Applied Mathematics</i>. 64 207-217. 1994.</p>
 
 </body>
 </html>
